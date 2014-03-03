@@ -1,0 +1,6 @@
+Project about web-driven remote administration of linux server writen in C++.
+Created 27.02.2014
+Participants:
+    Vladimir Bartosik
+    Martin Kuzma
+    Marek Moravcik
