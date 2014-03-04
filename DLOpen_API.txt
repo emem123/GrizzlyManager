@@ -1,0 +1,44 @@
+Kniznica sa skompiluje ako klasicky shared object (.so)
+
+kniznica.so: kniznica.o
+	gcc -Wall -pedantic -shared -Wl,-soname,libkniznica.so.1 kniznica.o -o libkniznica.so.1.0.1 -lc
+	ln -s libkniznica.so.1.0.1 libkniznica.so.1
+	ln -s libkniznica.so.1 libkniznica.so
+
+kniznica.o: kniznica.c kniznica.h
+	gcc -fPIC -g -c -Wall -pedantic -std=c99 kniznica.c
+
+
+kompilacia programu
+	gcc -Wall -ansi -std=c99 -pedantic program.c -o program -ldl
+
+
+v hlavnom programe include
+
+	#include <dlfcn.h>
+	#include <fcntl.h>
+
+otvorenie kniznice:
+
+	void * hendler = dlopen("./libkniznica.so.1", RTLD_LAZY);
+	
+	kde sa moze pouzit: RTLD_LAZY => natiahn premenne az ked ich bude treba
+			    RTDL_NOW  => natiahni premenne vsetka ihned
+
+definicia funkcie:
+
+	*(void **) (&meno_fcie_lokalne) = dlsym(hendler, "meno_fcie_v_kniznici");
+
+pouzitie funkcie:
+
+	int pocet = (meno_fcie_lokalne)(parametre);
+
+zatvorenie kniznice:
+
+	dlclose(hendler);
+
+pripadne chyby:
+
+	const char *dlerror(void);
+	Vracia odkaz na reťazec, obsahujúci diagnostické hlásenie o ostatnej chybe,
+	alebo NULL, ak chyba nenastala od poslednehos volania dlerror
