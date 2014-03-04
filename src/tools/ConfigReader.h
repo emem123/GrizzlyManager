@@ -12,6 +12,7 @@
 #include <string>
 #include <string.h>
 #include <iostream>
+#include <fstream>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -46,6 +47,14 @@ public:
 		char* buffer2 = (char*)malloc(256*sizeof(char));
 		int length = 0;
 
+		std::ifstream stream;
+		std::string buffer;
+
+		stream.open(filename.c_str(),std::fstream::in);
+
+		std::getline(stream,buffer);
+
+		/*
 		while(!feof(file)){
 			bzero(buffer2, 256);
 			getline(&buffer2, &size, file);
@@ -61,6 +70,7 @@ public:
 			}
 
 		}
+		*/
 
 	}
 
