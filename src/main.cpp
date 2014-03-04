@@ -31,8 +31,7 @@ std::string load_text_file(std::string file_name, int code){
 */
 
 int main( int argc, const char** args){
-	GrizzlyServer* gserver = GrizzlyServer::create_server(args, argc);
-	return gserver->start();
+	return GrizzlyServer::create_server(args, argc)->start();
 }
 
 

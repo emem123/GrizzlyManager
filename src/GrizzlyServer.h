@@ -31,8 +31,6 @@ private:
 	}
 
 	void setup(){
-
-
 		mg_set_http_error_handler(server,&GrizzlyServer::handle_error);
 		mg_set_request_handler(server,&GrizzlyServer::handle_request);
 	}
