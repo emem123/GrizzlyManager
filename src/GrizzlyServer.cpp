@@ -6,6 +6,7 @@
  */
 
 #include "GrizzlyServer.h"
+#include "tools/file.h"
 
 GrizzlyServer::GrizzlyServer(const char** args, const int argc) {
 	// Nahratie konfigu
@@ -19,12 +20,19 @@ GrizzlyServer::~GrizzlyServer() {
 
 GrizzlyServer* GrizzlyServer::create_server(const char** args, const int argc){
 
+	/*
+	list<string> l = readTextFileLines("test");
+	list<string>::iterator it;
+
+	for(it = l.begin(); it != l.end(); it++){
+		printf("Nacitany riadok: %s\n",(*it).c_str());
+	}
+	*/
+
 	return new GrizzlyServer(args,argc);
 }
 
 int GrizzlyServer::start(){
-
-
 
 	ConfigReader config;
 	//reader.run("config");

@@ -20,3 +20,16 @@ string readTextFile(const string &file_name){
 	return ret_string;
 }
 
+
+list<string> readTextFileLines(const string &file_name){
+	std::ifstream stream;
+	list<string> list;
+	std::string line;
+	stream.open(file_name.c_str(),std::fstream::in);
+
+	while(getline(stream, line)){
+		list.push_back(line);
+	}
+
+	return list;
+}
