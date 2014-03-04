@@ -18,6 +18,7 @@ public:
 
 	virtual std::string getModuleName() = 0;
 	virtual std::string getModuleSlug() = 0;
+	virtual std::string getModuleDescription() = 0;
 
 	virtual void init() = 0;
 	virtual void resolve() = 0;
