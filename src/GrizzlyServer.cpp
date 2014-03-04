@@ -26,8 +26,14 @@ void GrizzlyServer::start(){
 	//void(GrizzlyServer::*init)(void);
 	//init = &GrizzlyServer::start;
 
+	ConfigReader config;
+	//reader.run("config");
+
+	ConfigReader modules;
 
 	// Nacitat konfig.
+	//reader.getItemArgs()
+
 
 
 

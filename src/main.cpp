@@ -63,15 +63,6 @@ int main(const char** args, int argc){
 
 	//GrizzlyServer* gserver = GrizzlyServer::create_server(args, argc);
 
-	ConfigReader reader;
-
-	reader.run("d");
-
-	std::string st = load_text_file("/proc/meminfo",0);
-
-
-	printf("%s\n", st.c_str());
-
 	mg_server* server = mg_create_server(NULL);
 
 	mg_set_option(server, "document_root", ".");

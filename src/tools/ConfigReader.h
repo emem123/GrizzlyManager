@@ -15,14 +15,22 @@
 #include <fstream>
 #include <stdio.h>
 #include <stdlib.h>
+#include <list>
 
-#define READER_BUFFER_SIZE 512
+using namespace std;
+
+struct config_pair_s{
+	string name;
+	string value;
+};
 
 class ConfigReader {
 private:
-	std::map<std::string,std::string> items;
+
 
 public:
+	map<string,std::string > items;
+
 	ConfigReader();
 	virtual ~ConfigReader();
 
@@ -30,49 +38,17 @@ public:
 		return items.size();
 	}
 
-	std::string getItemString(std::string i){
+	string getItemArgs(std::string i){
 		return items[i];
 	}
 
+	/*
 	int getItemInt(std::string i){
 		std::string item = items[i];
-
 		return atoi(item.c_str());
-	}
+	}*/
 
-	void run(const std::string &filename){
-		FILE* file = fopen(filename.c_str(), "r");
-		size_t size = 256;
-
-		char* buffer2 = (char*)malloc(256*sizeof(char));
-		int length = 0;
-
-		std::ifstream stream;
-		std::string buffer;
-
-		stream.open(filename.c_str(),std::fstream::in);
-
-		std::getline(stream,buffer);
-
-		/*
-		while(!feof(file)){
-			bzero(buffer2, 256);
-			getline(&buffer2, &size, file);
-			if((length = strlen(buffer2)) > 0 && buffer2[0] != '#'){
-				//__restrictgetdelim(&buffer2,&size,' ', file)
-
-				items["check"] = "testat";
-
-
-				//for(int n = 0; n < length; n++){
-				//}
-
-			}
-
-		}
-		*/
-
-	}
+	void run(const std::string &filename);
 
 };
 
