@@ -9,7 +9,7 @@
 
 GrizzlyServer::GrizzlyServer(const char** args, const int argc) {
 	// Nahratie konfigu
-
+	handler = new GrizzlyHandler();
 	server = mg_create_server(NULL);
 }
 
@@ -22,28 +22,25 @@ GrizzlyServer* GrizzlyServer::create_server(const char** args, const int argc){
 	return new GrizzlyServer(args,argc);
 }
 
-void GrizzlyServer::start(){
-	//void(GrizzlyServer::*init)(void);
-	//init = &GrizzlyServer::start;
+int GrizzlyServer::start(){
+
+
 
 	ConfigReader config;
 	//reader.run("config");
-
 	ConfigReader modules;
+	//modules.run("modules");
 
-	// Nacitat konfig.
-	//reader.getItemArgs()
+	mg_set_option(server, "document_root", ".");
+	mg_set_option(server, "listening_port", "80");
 
-
-
-
-
-
-
-	//Vytvorit server.
 	setup();
 
+	for (;;) mg_poll_server(server, 1000); // main loop
 
+	mg_destroy_server(&server);
+
+	return 0;
 }
 
 MGHandler* GrizzlyServer::handler;

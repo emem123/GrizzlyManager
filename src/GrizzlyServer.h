@@ -11,6 +11,7 @@
 #include "mongoose/mongoose.h"
 #include "mongoose/MGHandler.h"
 #include "tools/ConfigReader.h"
+#include "GrizzlyHandler.h"
 #include <string>
 
 class GrizzlyServer {
@@ -30,6 +31,8 @@ private:
 	}
 
 	void setup(){
+
+
 		mg_set_http_error_handler(server,&GrizzlyServer::handle_error);
 		mg_set_request_handler(server,&GrizzlyServer::handle_request);
 	}
@@ -38,7 +41,8 @@ public:
 	GrizzlyServer(const char** args, const int argc);
 	virtual ~GrizzlyServer();
 	static GrizzlyServer* create_server(const char** args, const int argc);
-	void start();
+
+	int start();
 
 };
 
