@@ -12,16 +12,26 @@
 #include <string>
 
 class GrizzlyModule {
+private:
+	std::string name;
+	std::string slug;
+
+	std::string (*p_module_name)();
+
 public:
 	GrizzlyModule();
 	virtual ~GrizzlyModule();
 
-	virtual std::string getModuleName() = 0;
-	virtual std::string getModuleSlug() = 0;
-	virtual std::string getModuleDescription() = 0;
+	std::string getName(){return name;}
+	void setName(const std::string &arg){ name = arg;}
+	virtual std::string getModuleName(){ return "kek";}
+	virtual std::string getModuleSlug(){ return "slug";}
+	virtual std::string getModuleDescription(){ return "kek";}
 
-	virtual void init() = 0;
-	virtual void resolve() = 0;
+	std::string onRequest(const char* request);
+
+	virtual void init(){ }
+	virtual void resolve(){ }
 
 };
 

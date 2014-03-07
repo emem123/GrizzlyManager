@@ -15,11 +15,14 @@
 #include <fstream>
 #include <stdio.h>
 #include <list>
+#include <vector>
 
 using namespace std;
 
+
 string readTextFile(const string &file_name);
 list<string> readTextFileLines(const string &file_name);
+vector<string> split(const string &src, const string &delimiters);
 
 /**
  * Pracovna verzia. Porovna rychlosti medzi readTextFile a tymto.

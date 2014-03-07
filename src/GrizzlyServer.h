@@ -20,6 +20,8 @@ private:
 	int port;				// Port we are using.
 	std::string root_path; 	// Root document path
 
+	map<std::string, GrizzlyModule*> modules;
+
 	static MGHandler* handler;
 
 	static int handle_request(mg_connection* conn){
@@ -34,6 +36,9 @@ private:
 		mg_set_http_error_handler(server,&GrizzlyServer::handle_error);
 		mg_set_request_handler(server,&GrizzlyServer::handle_request);
 	}
+
+
+
 
 public:
 	GrizzlyServer(const char** args, const int argc);

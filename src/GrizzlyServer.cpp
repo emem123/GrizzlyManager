@@ -37,7 +37,10 @@ int GrizzlyServer::start(){
 	ConfigReader config;
 	//reader.run("config");
 	ConfigReader modules;
+
 	//modules.run("modules");
+
+
 
 	mg_set_option(server, "document_root", ".");
 	mg_set_option(server, "listening_port", "80");

@@ -48,7 +48,7 @@ public:
 		return atoi(item.c_str());
 	}*/
 
-	void run(const std::string &filename);
+	void run(const std::string &filename, bool print = false);
 
 };
 

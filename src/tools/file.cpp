@@ -20,7 +20,6 @@ string readTextFile(const string &file_name){
 	return ret_string;
 }
 
-
 list<string> readTextFileLines(const string &file_name){
 	std::ifstream stream;
 	list<string> list;
@@ -29,6 +28,33 @@ list<string> readTextFileLines(const string &file_name){
 
 	while(getline(stream, line)){
 		list.push_back(line);
+	}
+
+	return list;
+}
+
+vector<string> split(const string &src, const string &delimiters){
+	vector<string> list;
+	string substr;
+
+	int p = 0;
+	int s = 0;
+
+	p = src.find_first_of(delimiters,s);
+
+	while(p != string::npos){
+		if(s != p){
+			list.push_back(src.substr(s,p-s));
+		}
+
+		s = p + 1;
+		p = src.find_first_of(delimiters,s);
+	}
+
+
+
+	if(s < src.size()){
+		list.push_back(src.substr(s));
 	}
 
 	return list;
