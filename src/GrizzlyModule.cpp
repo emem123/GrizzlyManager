@@ -8,15 +8,34 @@
 #include "GrizzlyModule.h"
 
 GrizzlyModule::GrizzlyModule() {
-	// TODO Auto-generated constructor stub
-
 }
 
 GrizzlyModule::~GrizzlyModule() {
-	// TODO Auto-generated destructor stub
+	// TODO Dealokacia vsetkeho.
 }
 
-std::string GrizzlyModule::onRequest(const char* request){
+std::string GrizzlyModule::onRequest(const map<string,string>* query){
+	std::string response = "<form> First name: <input type=\"text\" name=\"firstname\" value=\"";
+	std::string firstname;
+	std::string lastname;
+	try{
+		firstname = query->at("firstname");
+		lastname = query->at("lastname");
+	}catch(std::out_of_range){
 
-	return std::string("Empty");
+	}
+
+	response += firstname;
+	response += "\"> <br> Last name: <input type=\"text\" name=\"lastname\" value=\"";
+	response += lastname;
+	response +=	"\"> <input type=\"submit\" value=\"Submit\"></form> ";
+
+	if(firstname.size() != 0){
+		response += "Your name is ";
+		response += firstname;
+		response += ".";
+	}
+
+
+	return response;
 }

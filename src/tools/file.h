@@ -16,14 +16,16 @@
 #include <stdio.h>
 #include <list>
 #include <vector>
+#include <map>
 
 using namespace std;
 
 
-string readTextFile(const string &file_name);
-list<string> readTextFileLines(const string &file_name);
-vector<string> split(const string &src, const string &delimiters);
-
+string 			readTextFile(const string &file_name);
+list<string> 	readTextFileLines(const string &file_name);
+vector<string> 	split(const string &src, const string &delimiters);
+vector<string> 	splitWithEmpty(const string &src, const string &delimiters);
+void vecPairToMap(map< string, string>* dst, const vector<string>* src);
 /**
  * Pracovna verzia. Porovna rychlosti medzi readTextFile a tymto.
  */

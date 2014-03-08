@@ -28,10 +28,9 @@ public:
 		modules = mods;
 	}
 
-	std::string onRequest(const char* request){
-		printf("T %d\n", modules);
-		std::map<std::string, GrizzlyModule*>::iterator it;
+	std::string onRequest(const map<string, string>* query){
 
+		std::map<std::string, GrizzlyModule*>::iterator it;
 		std::string res;
 
 
@@ -45,7 +44,6 @@ public:
 		}
 
 		return res;
-
 	}
 
 };

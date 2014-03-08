@@ -23,6 +23,7 @@ private:
 	map<std::string, GrizzlyModule*> modules;
 	string header;
 	string footer;
+	string error;
 
 public:
 	GrizzlyHandler();
@@ -33,7 +34,8 @@ public:
 	int onRequest(mg_connection * conn);
 	int onAuth(mg_connection* conn);
 
-	void register_module(GrizzlyModule* module);
+	void registerModule(GrizzlyModule* module);
+	void unregisterModule(string name, bool isSlug = true);
 	void prepareHeader();
 };
 

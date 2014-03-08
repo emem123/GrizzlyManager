@@ -14,5 +14,7 @@ GrizzlyMainPageModule::GrizzlyMainPageModule() {
 
 GrizzlyMainPageModule::~GrizzlyMainPageModule() {
 	// TODO Auto-generated destructor stub
+
+
 }
 

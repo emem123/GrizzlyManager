@@ -42,7 +42,7 @@ vector<string> split(const string &src, const string &delimiters){
 
 	p = src.find_first_of(delimiters,s);
 
-	while(p != string::npos){
+	while(p != -1){
 		if(s != p){
 			list.push_back(src.substr(s,p-s));
 		}
@@ -59,3 +59,52 @@ vector<string> split(const string &src, const string &delimiters){
 
 	return list;
 }
+
+vector<string> splitWithEmpty(const string &src, const string &delimiters){
+	vector<string> list;
+	string substr;
+
+	printf("Test\n");
+	int p = 0;
+	int s = 0;
+
+	p = src.find_first_of(delimiters,s);
+
+	while(p != -1){
+		if(s != p){
+			list.push_back(src.substr(s,p-s));
+		}
+		else
+			list.push_back("");
+
+		s = p + 1;
+		p = src.find_first_of(delimiters,s);
+	}
+
+
+
+	if(s < src.size()){
+		list.push_back(src.substr(s));
+	}
+	printf("Test2\n");
+	return list;
+}
+
+void vecPairToMap(map< string, string>* dst, const vector<string>* src){
+	if(src->size() % 2 != 0)
+		return;
+
+	string key;
+	string value;
+
+	vector<string>::const_iterator it = src->begin();
+
+
+	for(;it != src->end();it++){
+		key = (*it);
+		it++;
+		value = (*it);
+		(*dst)[key] = value;
+	}
+}
+

@@ -10,6 +10,11 @@
 
 #include <dlfcn.h>
 #include <string>
+#include <vector>
+#include <map>
+#include <stdexcept>
+
+using namespace std;
 
 class GrizzlyModule {
 protected:
@@ -29,7 +34,7 @@ public:
 	virtual std::string getModuleSlug(){ return slug;}
 	virtual std::string getModuleDescription(){ return "This module does nothing.";}
 
-	virtual std::string onRequest(const char* request);
+	virtual std::string onRequest(const map<string,string>* query);
 
 	virtual void init(){ }
 	virtual void resolve(){ }
