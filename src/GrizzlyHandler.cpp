@@ -31,7 +31,7 @@ GrizzlyHandler::GrizzlyHandler() {
 }
 
 GrizzlyHandler::~GrizzlyHandler() {
-	// TODO Auto-generated destructor stub
+
 }
 
 int GrizzlyHandler::onError(mg_connection* conn){
@@ -42,56 +42,29 @@ int GrizzlyHandler::onChange(mg_connection * conn){
 	return 0;
 }
 int GrizzlyHandler::onRequest(mg_connection * conn){
+	//printf("Connection: %s Request method: %s Content: %s\n", conn->uri, conn->request_method, conn->server_param);
 
-
-
-	printf("Connection: %s Request method: %s Content: %s\n", conn->uri, conn->request_method, conn->status_code);
-
+	GrizzlyModule* module = NULL;
+	std::string response;
 	vector<string> parsed = split(conn->uri,"/");
 
-
-		GrizzlyModule* module = NULL;
-		printf("S1: %d\n", modules.size());
-
-		if(parsed.size() == 0){
-
+	try {
+		if(parsed.size() == 0)
 			module = modules.at("");
+		else
+			module = modules.at(parsed.at(0));
+	}
+	catch (const std::out_of_range& oor) {
+		return 0; // Nenasli sme v mape co sme pozadovali...
+	}
 
-			printf("T %d\n", &modules);
-		}
-		else{
-			try {
-				module = modules.at(parsed.at(0));
-			}
-			catch (const std::out_of_range& oor) {
-				return 0;
+	response = module->onRequest(conn->content); // Pripadna chyba je odchytena vyssie.
 
-			}
-		}
-		std::string response;
+	mg_send_data(conn,header.c_str(),(header.size()+1)*sizeof(char));
+	mg_send_data(conn,response.c_str(),(response.size()+1)*sizeof(char));
+	mg_send_data(conn,footer.c_str(),(footer.size()+1)*sizeof(char));
 
-		if(module != NULL){
-			printf("Ttest1\n");
-			response = module->onRequest("tt");
-		}
-		else{
-			return 0;
-		}
-
-		printf("S: %d\n", modules.size());
-
-
-		mg_send_data(conn,header.c_str(),(header.size()+1)*sizeof(char));
-		mg_send_data(conn,response.c_str(),(response.size()+1)*sizeof(char));
-		mg_send_data(conn,footer.c_str(),(footer.size()+1)*sizeof(char));
-		//for(int n=0; n < 20; n++)
-		//	mg_printf_data(conn, "<div class=\"content\">Hello! Requested URI is [%s]  remote address %s</div>\n", conn->uri, conn->remote_ip);
-
-		return MG_REQUEST_PROCESSED;
-
-	  //mg_write_data(conn, (void*)reply, strlen(reply));
-
-	//return 0;
+	return MG_REQUEST_PROCESSED;
 }
 
 void GrizzlyHandler::register_module(GrizzlyModule* module){
@@ -113,8 +86,6 @@ void GrizzlyHandler::prepareHeader(){
 	}
 
 	header += "</nav> <div class=\"content\">";
-
-
 	footer = readTextFile("footer.html");
 }
 
