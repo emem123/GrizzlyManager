@@ -12,7 +12,7 @@
 #include <string>
 
 class GrizzlyModule {
-private:
+protected:
 	std::string name;
 	std::string slug;
 
@@ -24,11 +24,12 @@ public:
 
 	std::string getName(){return name;}
 	void setName(const std::string &arg){ name = arg;}
-	virtual std::string getModuleName(){ return "kek";}
-	virtual std::string getModuleSlug(){ return "slug";}
-	virtual std::string getModuleDescription(){ return "kek";}
+	void setSlug(const std::string &arg){ slug = arg;}
+	virtual std::string getModuleName(){ return name;}
+	virtual std::string getModuleSlug(){ return slug;}
+	virtual std::string getModuleDescription(){ return "This module does nothing.";}
 
-	std::string onRequest(const char* request);
+	virtual std::string onRequest(const char* request);
 
 	virtual void init(){ }
 	virtual void resolve(){ }

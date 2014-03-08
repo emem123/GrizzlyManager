@@ -10,14 +10,19 @@
 
 #include "mongoose/MGHandler.h"
 #include "GrizzlyModule.h"
+#include "GrizzlyMainPageModule.h"
+
 #include <string>
 #include <map>
+#include <unistd.h>
+
+using namespace std;
 
 class GrizzlyHandler : public MGHandler{
 private:
-	std::map<std::string, GrizzlyModule*> modules;
-	std::string header;
-	std::string footer;
+	map<std::string, GrizzlyModule*> modules;
+	string header;
+	string footer;
 
 public:
 	GrizzlyHandler();

@@ -18,5 +18,5 @@ GrizzlyModule::~GrizzlyModule() {
 
 std::string GrizzlyModule::onRequest(const char* request){
 
-	return NULL;
+	return std::string("Empty");
 }

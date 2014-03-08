@@ -40,8 +40,6 @@ int GrizzlyServer::start(){
 
 	//modules.run("modules");
 
-
-
 	mg_set_option(server, "document_root", ".");
 	mg_set_option(server, "listening_port", "80");
 

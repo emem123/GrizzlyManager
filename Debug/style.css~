@@ -42,11 +42,12 @@ li{
 }
 
 .content{
+	
 	margin-left: auto;
 	margin-right: auto;
 	width: 90%;
 	margin-top: 60px;
-	padding: 10px;
+
 	min-height: 100px;
 	background-color: white;
 	box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.4);
@@ -54,6 +55,7 @@ li{
 }
 
 .footer{
+	text-align: right;
 	font-size: 10px;
 	width: 100%;
 	position: fixed;
@@ -61,6 +63,22 @@ li{
 	box-shadow: 0px -3px 3px 0px rgba(0, 0, 0, 0.3);
 }
 
+h3{
+	font-weight:normal;
+	font-size: 19px;
+	font-family: Lato,sans-serif;
+}
+
+.info{
+	color: #4D4D4D;
+	font-size: 14px;
+	margin: 0px;
+	padding: 5px;
+}
+
+.info:nth-child(even){
+	background-color: #EEEEEE;
+}
 nav {
 	
 	font-size: 19px;
