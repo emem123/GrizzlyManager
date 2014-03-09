@@ -23,7 +23,7 @@ otvorenie kniznice:
 	void * hendler = dlopen("./libkniznica.so.1", RTLD_LAZY);
 	
 	kde sa moze pouzit: RTLD_LAZY => natiahn premenne az ked ich bude treba
-			    RTDL_NOW  => natiahni premenne vsetka ihned
+			    RTLD_NOW  => natiahni premenne vsetka ihned
 
 definicia funkcie:
 

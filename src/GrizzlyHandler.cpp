@@ -11,27 +11,65 @@
 #include "tools/macros.h"
 #include <iostream>
 #include <stdexcept>
+#include "GrizzlyMainPageModule.h"
 
 GrizzlyHandler::GrizzlyHandler() {
 	GrizzlyMainPageModule* mainpage = new GrizzlyMainPageModule();
 
 	registerModule(mainpage);
 
-	GrizzlyModule* module = new GrizzlyModule();
+	/*GrizzlyModule* module = new GrizzlyModule();
 	module->setName("Python");
 	module->setSlug("python");
 	registerModule(module);
 	module = new GrizzlyModule();
 	module->setName("System Info");
 	module->setSlug("sysinfo");
-	registerModule(module);
-	prepareHeader();
+	registerModule(module);*/
 
+	init();
+
+	//must be called last
+	prepareHeader();
 	mainpage->setModuleMap(&modules);
 }
 
 GrizzlyHandler::~GrizzlyHandler() {
 
+}
+
+void GrizzlyHandler::init()
+{
+	list<string> lines = readTextFileLines("modules.conf");
+	list<string>::iterator it;
+
+	for(it = lines.begin();it != lines.end();it++)
+	{
+		void* lib = dlopen(lines.front().c_str(), RTLD_LAZY);
+
+		if (lib == NULL)
+		{
+			cerr << "Cannot load library: " << dlerror() << '\n';
+			continue;
+		}
+
+		GrizzlyModule* (*createInstance)();
+		createInstance = (GrizzlyModule* (*)()) dlsym(lib, "createInstance");
+
+		if (createInstance == NULL)
+	    {
+			cerr << "Cannot create instance: " << dlerror() << '\n';
+			continue;
+		}
+
+		GrizzlyModule* module = createInstance();
+
+		if(module->getModuleName().empty() || module->getModuleSlug().empty())
+		{
+			printf("Name and slug of the module cannot be empty!");
+		}
+		registerModule(module);
+	}
 }
 
 int GrizzlyHandler::onError(mg_connection* conn){
@@ -99,7 +137,7 @@ void GrizzlyHandler::prepareHeader(){
 		header += "<a href=\"/";
 		header += (*it).second->getModuleSlug();
 		header += "\">";
-		header += (*it).second->getName();
+		header += (*it).second->getModuleName();
 		//Aleheader += "<div class=\"menu\">Test</div>";
 		header += "</a>";
 	}

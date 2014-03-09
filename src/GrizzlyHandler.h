@@ -15,6 +15,8 @@
 #include <string>
 #include <map>
 #include <unistd.h>
+#include <dlfcn.h>
+#include <fcntl.h>
 
 using namespace std;
 
@@ -29,6 +31,7 @@ public:
 	GrizzlyHandler();
 	virtual ~GrizzlyHandler();
 
+	void init();
 	int onError(mg_connection* conn);
 	int onChange(mg_connection * conn);
 	int onRequest(mg_connection * conn);

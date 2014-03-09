@@ -6,6 +6,7 @@
  */
 
 #include "GrizzlyModule.h"
+#include <stdio.h>
 
 GrizzlyModule::GrizzlyModule() {
 }
@@ -18,12 +19,12 @@ std::string GrizzlyModule::onRequest(const map<string,string>* query){
 	std::string response = "<form> First name: <input type=\"text\" name=\"firstname\" value=\"";
 	std::string firstname;
 	std::string lastname;
-	try{
+	//try{
 		firstname = query->at("firstname");
 		lastname = query->at("lastname");
-	}catch(std::out_of_range){
+	//}catch(std::out_of_range){
 
-	}
+	//}
 
 	response += firstname;
 	response += "\"> <br> Last name: <input type=\"text\" name=\"lastname\" value=\"";
