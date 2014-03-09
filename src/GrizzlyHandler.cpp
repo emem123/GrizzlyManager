@@ -42,7 +42,7 @@ int GrizzlyHandler::onChange(mg_connection * conn){
 	return 0;
 }
 int GrizzlyHandler::onRequest(mg_connection * conn){
-	//printf("Connection: %s \nRequest method: %s \nContent: %s\n\n", conn->uri, conn->query_string, conn->connection_param);
+
 	GrizzlyModule* module = NULL;
 	std::string response;
 	vector<string> parsed = split(conn->uri,"/");

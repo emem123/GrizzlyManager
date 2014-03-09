@@ -17,6 +17,8 @@ string readTextFile(const string &file_name){
 		ret_string.append(line);
 	}
 
+	stream.close();
+
 	return ret_string;
 }
 
@@ -29,6 +31,8 @@ list<string> readTextFileLines(const string &file_name){
 	while(getline(stream, line)){
 		list.push_back(line);
 	}
+
+	stream.close();
 
 	return list;
 }
@@ -64,7 +68,6 @@ vector<string> splitWithEmpty(const string &src, const string &delimiters){
 	vector<string> list;
 	string substr;
 
-	printf("Test\n");
 	int p = 0;
 	int s = 0;
 
@@ -86,7 +89,7 @@ vector<string> splitWithEmpty(const string &src, const string &delimiters){
 	if(s < src.size()){
 		list.push_back(src.substr(s));
 	}
-	printf("Test2\n");
+
 	return list;
 }
 

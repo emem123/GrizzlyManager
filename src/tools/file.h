@@ -48,6 +48,7 @@ static string load_text_file(std::string file_name, int code){
 		bzero(buffer, size_buffer);
 	}
 
+	fclose(file);
 	return s;
 }
 
