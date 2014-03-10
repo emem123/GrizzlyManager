@@ -8,6 +8,7 @@ It is written in C++ under GNU GPLv3 license. The core program runs as
 service and can load modules and use their functionalities.
 
 License: GNU GPLv3
+
 Repository: https://github.com/emem123/GrizzlyManager.git
 
 
