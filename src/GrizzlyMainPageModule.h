@@ -57,6 +57,8 @@ public:
 		return res;
 	}
 
+	void init(){}
+
 };
 
 #endif /* GRIZZLYMAINPAGEMODULE_H_ */

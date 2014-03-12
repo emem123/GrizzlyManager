@@ -56,7 +56,8 @@ void GrizzlyHandler::init()
 
 	for(it = lines.begin();it != lines.end();it++)
 	{
-		void* lib = dlopen(lines.front().c_str(), RTLD_LAZY);
+		// TODO Vlado - pridanie otvorenej kniznice do zoznamu, ak nie je chybna (vid nizsie) a po vypnuti modulu (alebo pri chybe) uzavretie kniznice.
+		void* lib = dlopen((*it).c_str(), RTLD_LAZY);
 
 		if (lib == NULL)
 		{
@@ -77,7 +78,8 @@ void GrizzlyHandler::init()
 
 		if(module->getModuleName().empty() || module->getModuleSlug().empty())
 		{
-			printf("Name and slug of the module cannot be empty!");
+			printf("Name and slug of the module cannot be empty!\n");
+			continue;
 		}
 		registerModule(module);
 	}
@@ -130,7 +132,8 @@ int GrizzlyHandler::onRequest(mg_connection * conn){
 }
 
 void GrizzlyHandler::registerModule(GrizzlyModule* module){
-			modules[module->getModuleSlug()] = module;
+	module->init();
+	modules[module->getModuleSlug()] = module;
 }
 
 void GrizzlyHandler::unregisterModule(string name, bool isSlug){
