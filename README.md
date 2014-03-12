@@ -3,9 +3,9 @@ GrizzlyManager
 
 Authors of this document: Vladimír Bartošík, Martin Kuzma, Marek Moravčík.
 
-GrizzlyManager is utility for remote administration of Liunux server.
+GrizzlyManager is utility for remote administration of Linux server.
 It is written in C++ under GNU GPLv3 license. The core program runs as
-service and can load modules and use their functionalities.
+service and can load modules (compiled as shared libraries) and use their functionalities.
 
 License: GNU GPLv3
 
@@ -16,14 +16,14 @@ Installation
 ===========
 
 configure
-********
+**
 
 This script checks if you have permissions to install GrizzlyManager,
 if another instance of GrizzlyManager is running and if TCP port 80
 is not used by another application.
 
 make clean
-*********
+***
 
 This removes all compiled files, binaries, shared objects and so on.
 It leaves only source code files and readme files.
