@@ -16,7 +16,7 @@ Installation
 ===========
 
 configure
-**
+***
 
 This script checks if you have permissions to install GrizzlyManager,
 if another instance of GrizzlyManager is running and if TCP port 80
