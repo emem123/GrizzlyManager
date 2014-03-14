@@ -23,6 +23,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "GrizzlyModule.h"
 #include "GrizzlyMainPageModule.h"
 
+#include "tools/web.h"
+#include "tools/file.h"
+#include "tools/macros.h"
+
+#include <iostream>
+#include <stdexcept>
 #include <string>
 #include <map>
 #include <unistd.h>
