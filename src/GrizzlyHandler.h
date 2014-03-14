@@ -37,10 +37,15 @@ private:
 	string header;
 	string footer;
 	string error;
+	string style_path;
+	string jquery_ui_path;
 
 public:
 	GrizzlyHandler();
 	virtual ~GrizzlyHandler();
+
+	void setCSStyle(const string style);
+	void setJQueryUI(const string ui);
 
 	void init();
 	int onError(mg_connection* conn);

@@ -60,6 +60,6 @@ void ConfigReader::run(const std::string &filename, bool print){
 		items[name] = value;
 
 		if(print)
-			printf("%s \t:\t %s| %d\n", name.c_str(), value.c_str(),endpos);
+			printf("%s\t%s\n", name.c_str(), value.c_str());
 	}
 }

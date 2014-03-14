@@ -32,8 +32,7 @@ private:
 	std::string root_path; 	// Root document path
 
 	map<std::string, GrizzlyModule*> modules;
-
-	static MGHandler* handler;
+	static GrizzlyHandler* handler;
 
 	static int handle_request(mg_connection* conn){
 		return GrizzlyServer::handler->onRequest(conn);
@@ -43,21 +42,13 @@ private:
 		return GrizzlyServer::handler->onError(conn);
 	}
 
-	void setup(){
-		mg_set_http_error_handler(server,&GrizzlyServer::handle_error);
-		mg_set_request_handler(server,&GrizzlyServer::handle_request);
-	}
-
-
-
+	void setup();
 
 public:
 	GrizzlyServer(const char** args, const int argc);
 	virtual ~GrizzlyServer();
 	static GrizzlyServer* create_server(const char** args, const int argc);
-
 	int start();
-
 };
 
 #endif /* GRIZZLYSERVER_H_ */

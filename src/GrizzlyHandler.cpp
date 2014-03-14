@@ -27,24 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 string decodeURL(string &param);
 
 GrizzlyHandler::GrizzlyHandler() {
-	GrizzlyMainPageModule* mainpage = new GrizzlyMainPageModule();
-
-	registerModule(mainpage);
-
-	/*GrizzlyModule* module = new GrizzlyModule();
-	module->setName("Python");
-	module->setSlug("python");
-	registerModule(module);
-	module = new GrizzlyModule();
-	module->setName("System Info");
-	module->setSlug("sysinfo");
-	registerModule(module);*/
-
-	init();
-
-	//must be called last
-	prepareHeader();
-	mainpage->setModuleMap(&modules);
 }
 
 GrizzlyHandler::~GrizzlyHandler() {
@@ -53,12 +35,15 @@ GrizzlyHandler::~GrizzlyHandler() {
 
 void GrizzlyHandler::init()
 {
-	list<string> lines = readTextFileLines("modules.conf");
+	list<string> lines = readTextFileLines("../data/modules.conf");
 	list<string>::iterator it;
+
+	//printf("D: ")
 
 	for(it = lines.begin();it != lines.end();it++)
 	{
-		void* lib = dlopen(lines.front().c_str(), RTLD_LAZY);
+		// TODO Vlado - pridanie otvorenej kniznice do zoznamu, ak nie je chybna (vid nizsie) a po vypnuti modulu (alebo pri chybe) uzavretie kniznice.
+		void* lib = dlopen((*it).c_str(), RTLD_LAZY);
 
 		if (lib == NULL)
 		{
@@ -79,10 +64,17 @@ void GrizzlyHandler::init()
 
 		if(module->getModuleName().empty() || module->getModuleSlug().empty())
 		{
-			printf("Name and slug of the module cannot be empty!");
+			printf("Name and slug of the module cannot be empty!\n");
+			continue;
 		}
 		registerModule(module);
 	}
+
+
+	GrizzlyMainPageModule* mainpage = new GrizzlyMainPageModule();
+	registerModule(mainpage);
+	prepareHeader();
+	mainpage->setModuleMap(&modules);
 }
 
 int GrizzlyHandler::onError(mg_connection* conn){
@@ -93,6 +85,7 @@ int GrizzlyHandler::onChange(mg_connection * conn){
 	return 0;
 }
 int GrizzlyHandler::onRequest(mg_connection * conn){
+
 
 	GrizzlyModule* module = NULL;
 	std::string response;
@@ -120,8 +113,6 @@ int GrizzlyHandler::onRequest(mg_connection * conn){
 	map<string, string> parsed_query;
 	vecPairToMap(&parsed_query, &query);
 
-	std::string temp;
-
 	try{
 		response = module->onRequest(&parsed_query); // Pripadna chyba je odchytena vyssie.
 	}catch(std::exception e){
@@ -137,7 +128,8 @@ int GrizzlyHandler::onRequest(mg_connection * conn){
 }
 
 void GrizzlyHandler::registerModule(GrizzlyModule* module){
-			modules[module->getModuleSlug()] = module;
+	module->init();
+	modules[module->getModuleSlug()] = module;
 }
 
 void GrizzlyHandler::unregisterModule(string name, bool isSlug){
@@ -149,7 +141,15 @@ void GrizzlyHandler::unregisterModule(string name, bool isSlug){
 void GrizzlyHandler::prepareHeader(){
 	map<std::string, GrizzlyModule*>::iterator it;
 
-	header = readTextFile("header.html");
+	header = readTextFile("../data/header.html");
+
+	int occurence = header.find("&css",0);
+	if(occurence != -1)
+		header.replace(occurence,4,style_path);
+	occurence = header.find("&jui",0);
+	if(occurence != -1)
+			header.replace(occurence,4,jquery_ui_path);
+
 	header += "<nav>";
 	for(it = modules.begin(); it != modules.end(); it++){
 		header += "<a href=\"/";
@@ -161,8 +161,8 @@ void GrizzlyHandler::prepareHeader(){
 	}
 
 	header += "</nav> <div class=\"content\">";
-	footer = readTextFile("footer.html");
-	error = readTextFile("error.html");
+	footer = readTextFile("../data/footer.html");
+	error = readTextFile("../data/error.html");
 }
 
 string decodeURL(string &param)
@@ -187,5 +187,13 @@ string decodeURL(string &param)
         }
     }
     return ret;
+}
+
+void GrizzlyHandler::setCSStyle(const string style){
+		style_path = style;
+}
+
+void GrizzlyHandler::setJQueryUI(const string ui){
+		jquery_ui_path = ui;
 }
 

@@ -46,7 +46,10 @@ public:
 
 	virtual std::string onRequest(const map<string,string>* query) = 0;
 
-	virtual void init(){ }
+	/**
+	 *	Is called once per lifetime of module.
+	 */
+	virtual void init() = 0;
 	virtual void resolve(){ }
 
 };
