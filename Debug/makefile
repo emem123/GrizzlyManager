@@ -8,6 +8,7 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include src/webtools/subdir.mk
 -include src/tools/subdir.mk
 -include src/mongoose/subdir.mk
 -include src/subdir.mk

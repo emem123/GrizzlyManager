@@ -45,6 +45,7 @@ public:
 		std::string res;
 
 
+
 		for(it = modules->begin(); it != modules->end(); it++){
 			res += "<div class=\"info\">";
 			res += "<h3>";
