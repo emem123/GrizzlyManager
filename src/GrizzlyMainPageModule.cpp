@@ -25,7 +25,26 @@ GrizzlyMainPageModule::GrizzlyMainPageModule() {
 
 GrizzlyMainPageModule::~GrizzlyMainPageModule() {
 	// TODO Auto-generated destructor stub
-
-
 }
 
+std::string GrizzlyMainPageModule::onRequest(const map<string, string>* query){
+
+	std::map<std::string, GrizzlyModule*>::iterator it;
+	std::string res;
+	WebTabBuilder tabs;
+
+	for(it = modules->begin(); it != modules->end(); it++){
+		res += "<div class=\"info\">";
+		res += "<h3>";
+		res += (*it).second->getModuleName();
+		res += "</h3><span>";
+		res += (*it).second->getModuleDescription();
+		res += "</span></div>";
+	}
+
+	tabs.addTab("Modules",res);
+	tabs.addTab("Options","Under construnction.");
+
+
+	return tabs.build();
+}

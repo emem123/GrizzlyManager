@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 GrizzlyServer::GrizzlyServer(const char** args, const int argc) {
 	// Nahratie konfigu
+
 	handler = new GrizzlyHandler();
 	server = mg_create_server(NULL);
 }
@@ -30,31 +31,15 @@ GrizzlyServer::~GrizzlyServer() {
 }
 
 GrizzlyServer* GrizzlyServer::create_server(const char** args, const int argc){
-
-	/*
-	list<string> l = readTextFileLines("test");
-	list<string>::iterator it;
-
-	for(it = l.begin(); it != l.end(); it++){
-		printf("Nacitany riadok: %s\n",(*it).c_str());
-	}
-	*/
-
 	return new GrizzlyServer(args,argc);
 }
 
 int GrizzlyServer::start(){
 
-	ConfigReader config;
-	//reader.run("config");
-	ConfigReader modules;
-
-	//modules.run("modules");
 
 	// TODO Prenastavit working directory.
 	mg_set_option(server, "document_root", "../data/");
 	mg_set_option(server, "listening_port", "80");
-
 	setup();
 
 	for (;;) mg_poll_server(server, 1000); // main loop
@@ -64,4 +49,22 @@ int GrizzlyServer::start(){
 	return 0;
 }
 
-MGHandler* GrizzlyServer::handler;
+void GrizzlyServer::setup(){
+
+	ConfigReader reader;
+	reader.run("../data/grizzly.conf", true);
+
+	// TODO osetrit.
+	string style = reader.getItemArgs("css_style");
+	string jquery_ui = reader.getItemArgs("jquery_ui");
+
+	handler->setCSStyle(style);
+	handler->setJQueryUI(jquery_ui);
+	handler->init();
+
+	mg_set_http_error_handler(server,&GrizzlyServer::handle_error);
+	mg_set_request_handler(server,&GrizzlyServer::handle_request);
+
+}
+
+GrizzlyHandler* GrizzlyServer::handler;

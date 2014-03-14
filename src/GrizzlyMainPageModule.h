@@ -23,6 +23,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <string>
 #include <string.h>
 #include <stdio.h>
+#include "webtools/WebTabBuilder.h"
+
 class GrizzlyMainPageModule : public GrizzlyModule {
 private:
 	std::map<std::string, GrizzlyModule*>* modules;
@@ -32,31 +34,13 @@ public:
 	GrizzlyMainPageModule();
 	virtual ~GrizzlyMainPageModule();
 
-
 	std::string getModuleDescription(){ return "This is core module for GrizzlyManager. It's purpose is to show this page.";}
 
 	void setModuleMap(std::map<std::string, GrizzlyModule*>* mods){
 		modules = mods;
 	}
 
-	std::string onRequest(const map<string, string>* query){
-
-		std::map<std::string, GrizzlyModule*>::iterator it;
-		std::string res;
-
-
-
-		for(it = modules->begin(); it != modules->end(); it++){
-			res += "<div class=\"info\">";
-			res += "<h3>";
-			res += (*it).second->getModuleName();
-			res += "</h3><span>";
-			res += (*it).second->getModuleDescription();
-			res += "</span></div>";
-		}
-
-		return res;
-	}
+	std::string onRequest(const map<string, string>* query);
 
 	void init(){}
 

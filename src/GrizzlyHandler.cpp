@@ -25,24 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "GrizzlyMainPageModule.h"
 
 GrizzlyHandler::GrizzlyHandler() {
-	GrizzlyMainPageModule* mainpage = new GrizzlyMainPageModule();
-
-	registerModule(mainpage);
-
-	/*GrizzlyModule* module = new GrizzlyModule();
-	module->setName("Python");
-	module->setSlug("python");
-	registerModule(module);
-	module = new GrizzlyModule();
-	module->setName("System Info");
-	module->setSlug("sysinfo");
-	registerModule(module);*/
-
-	init();
-
-	//must be called last
-	prepareHeader();
-	mainpage->setModuleMap(&modules);
 }
 
 GrizzlyHandler::~GrizzlyHandler() {
@@ -83,6 +65,12 @@ void GrizzlyHandler::init()
 		}
 		registerModule(module);
 	}
+
+
+	GrizzlyMainPageModule* mainpage = new GrizzlyMainPageModule();
+	registerModule(mainpage);
+	prepareHeader();
+	mainpage->setModuleMap(&modules);
 }
 
 int GrizzlyHandler::onError(mg_connection* conn){
@@ -117,7 +105,6 @@ int GrizzlyHandler::onRequest(mg_connection * conn){
 	map<string, string> parsed_query;
 	vecPairToMap(&parsed_query, &query);
 
-
 	try{
 		response = module->onRequest(&parsed_query); // Pripadna chyba je odchytena vyssie.
 	}catch(std::exception e){
@@ -147,6 +134,14 @@ void GrizzlyHandler::prepareHeader(){
 	map<std::string, GrizzlyModule*>::iterator it;
 
 	header = readTextFile("../data/header.html");
+
+	int occurence = header.find("&css",0);
+	if(occurence != -1)
+		header.replace(occurence,4,style_path);
+	occurence = header.find("&jui",0);
+	if(occurence != -1)
+			header.replace(occurence,4,jquery_ui_path);
+
 	header += "<nav>";
 	for(it = modules.begin(); it != modules.end(); it++){
 		header += "<a href=\"/";
@@ -162,5 +157,11 @@ void GrizzlyHandler::prepareHeader(){
 	error = readTextFile("../data/error.html");
 }
 
+void GrizzlyHandler::setCSStyle(const string style){
+		style_path = style;
+}
 
+void GrizzlyHandler::setJQueryUI(const string ui){
+		jquery_ui_path = ui;
+}
 
