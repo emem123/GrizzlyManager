@@ -42,7 +42,7 @@ public:
 	void setSlug(const std::string &arg){ slug = arg;}
 	virtual std::string getModuleName(){ return name;}
 	virtual std::string getModuleSlug(){ return slug;}
-	virtual std::string getModuleDescription(){ return "This module does nothing.";}
+	virtual std::string getModuleDescription() = 0;
 
 	virtual std::string onRequest(const map<string,string>* query) = 0;
 

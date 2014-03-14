@@ -24,6 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdexcept>
 #include "GrizzlyMainPageModule.h"
 
+string decodeURL(string &param);
+
 GrizzlyHandler::GrizzlyHandler() {
 	GrizzlyMainPageModule* mainpage = new GrizzlyMainPageModule();
 
@@ -111,9 +113,14 @@ int GrizzlyHandler::onRequest(mg_connection * conn){
 	if(conn->query_string != NULL)
 		query = splitWithEmpty(conn->query_string,"=&");
 
+	//Dekodujeme URL do zrozumitelnej podoby
+	for(unsigned int i = 0;i < query.size();i++)
+		query[i] = decodeURL(query[i]);
+
 	map<string, string> parsed_query;
 	vecPairToMap(&parsed_query, &query);
 
+	std::string temp;
 
 	try{
 		response = module->onRequest(&parsed_query); // Pripadna chyba je odchytena vyssie.
@@ -158,5 +165,27 @@ void GrizzlyHandler::prepareHeader(){
 	error = readTextFile("error.html");
 }
 
+string decodeURL(string &param)
+{
+    string ret;
+    char character;
+    unsigned int i;
+    int correctChar;
 
+    for (i = 0;i < param.length();i++)
+    {
+        if(int(param[i]) == 37)
+        {
+            sscanf(param.substr(i+1,2).c_str(), "%x", &correctChar);
+            character = static_cast<char>(correctChar);
+            i = i + 2;
+            ret += character;
+        }
+        else
+        {
+            ret += param[i];
+        }
+    }
+    return ret;
+}
 
