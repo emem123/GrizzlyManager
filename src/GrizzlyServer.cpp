@@ -51,7 +51,8 @@ int GrizzlyServer::start(){
 
 	//modules.run("modules");
 
-	mg_set_option(server, "document_root", ".");
+	// TODO Prenastavit working directory.
+	mg_set_option(server, "document_root", "../data/");
 	mg_set_option(server, "listening_port", "80");
 
 	setup();

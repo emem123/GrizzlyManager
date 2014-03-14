@@ -94,6 +94,7 @@ int GrizzlyHandler::onChange(mg_connection * conn){
 }
 int GrizzlyHandler::onRequest(mg_connection * conn){
 
+
 	GrizzlyModule* module = NULL;
 	std::string response;
 	vector<string> parsed = split(conn->uri,"/");
@@ -145,7 +146,7 @@ void GrizzlyHandler::unregisterModule(string name, bool isSlug){
 void GrizzlyHandler::prepareHeader(){
 	map<std::string, GrizzlyModule*>::iterator it;
 
-	header = readTextFile("header.html");
+	header = readTextFile("../data/header.html");
 	header += "<nav>";
 	for(it = modules.begin(); it != modules.end(); it++){
 		header += "<a href=\"/";
@@ -157,8 +158,8 @@ void GrizzlyHandler::prepareHeader(){
 	}
 
 	header += "</nav> <div class=\"content\">";
-	footer = readTextFile("footer.html");
-	error = readTextFile("error.html");
+	footer = readTextFile("../data/footer.html");
+	error = readTextFile("../data/error.html");
 }
 
 
