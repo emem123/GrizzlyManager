@@ -70,7 +70,6 @@ void GrizzlyHandler::init()
 		registerModule(module);
 	}
 
-
 	GrizzlyMainPageModule* mainpage = new GrizzlyMainPageModule();
 	registerModule(mainpage);
 	prepareHeader();

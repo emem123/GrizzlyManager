@@ -46,7 +46,6 @@ public:
 
 	void setCSStyle(const string style);
 	void setJQueryUI(const string ui);
-
 	void init();
 	int onError(mg_connection* conn);
 	int onChange(mg_connection * conn);
