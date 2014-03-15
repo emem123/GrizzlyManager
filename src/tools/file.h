@@ -29,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using namespace std;
 
+namespace gz{
 
 string 			readTextFile(const string &file_name);
 list<string> 	readTextFileLines(const string &file_name);
@@ -60,5 +61,7 @@ static string load_text_file(std::string file_name, int code){
 	fclose(file);
 	return s;
 }
+
+};
 
 #endif /* FILE_H_ */

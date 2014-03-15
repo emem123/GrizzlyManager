@@ -33,6 +33,7 @@ protected:
 	std::string slug;
 
 
+
 public:
 	GrizzlyModule();
 	virtual ~GrizzlyModule();
@@ -47,6 +48,15 @@ public:
 	virtual bool isResponseAjax(){return false;}
 
 	virtual std::string onRequest(const map<string,string>* query) = 0;
+
+	class GrizzlyControl{
+		public:
+			virtual string readTextFile(const string &file) = 0;
+			virtual string getDataDirectory() = 0;
+	};
+
+	GrizzlyControl* root;
+
 
 	/**
 	 *	Is called once per lifetime of module.

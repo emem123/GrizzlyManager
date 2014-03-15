@@ -28,7 +28,7 @@ GrizzlyHandler::~GrizzlyHandler() {
 
 void GrizzlyHandler::init()
 {
-	list<string> lines = readTextFileLines("../data/modules.conf");
+	list<string> lines = gz::readTextFileLines("../data/modules.conf");
 	list<string>::iterator it;
 
 	//printf("D: ")
@@ -54,6 +54,8 @@ void GrizzlyHandler::init()
 		}
 
 		GrizzlyModule* module = createInstance();
+		//printf("Module Name %s\n", module->getModuleName().c_str());
+		printf("Test0\n");
 
 		if(module->getModuleName().empty() || module->getModuleSlug().empty())
 		{
@@ -65,8 +67,12 @@ void GrizzlyHandler::init()
 
 	GrizzlyMainPageModule* mainpage = new GrizzlyMainPageModule();
 	registerModule(mainpage);
+
 	prepareHeader();
+	printf("Test2\n");
 	mainpage->setModuleMap(&modules);
+
+	printf("Test1\n");
 }
 
 int GrizzlyHandler::onError(mg_connection* conn){
@@ -81,7 +87,7 @@ int GrizzlyHandler::onRequest(mg_connection * conn){
 
 	GrizzlyModule* module = NULL;
 	std::string response;
-	vector<string> parsed = split(conn->uri,"/");
+	vector<string> parsed = gz::split(conn->uri,"/");
 
 	try {
 		if(parsed.size() == 0)
@@ -96,14 +102,14 @@ int GrizzlyHandler::onRequest(mg_connection * conn){
 	vector<string> query;
 
 	if(conn->query_string != NULL)
-		query = splitWithEmpty(conn->query_string,"=&");
+		query = gz::splitWithEmpty(conn->query_string,"=&");
 
 	//Dekodujeme URL do zrozumitelnej podoby
 	for(unsigned int i = 0;i < query.size();i++)
 		query[i] = decodeURL(query[i]);
 
 	map<string, string> parsed_query;
-	vecPairToMap(&parsed_query, &query);
+	gz::vecPairToMap(&parsed_query, &query);
 
 	try{
 		response = module->onRequest(&parsed_query); // Pripadna chyba je odchytena vyssie.
@@ -117,7 +123,6 @@ int GrizzlyHandler::onRequest(mg_connection * conn){
 			mg_send_data(conn,response.c_str(),(response.size()+1)*sizeof(char));
 		}
 
-
 	}catch(std::exception e){
 		printf("[EXCEPTION] Module:\t%s\t%s\n", module->getModuleName().c_str(), e.what());
 		response = error;
@@ -128,12 +133,11 @@ int GrizzlyHandler::onRequest(mg_connection * conn){
 
 	}
 
-
-
 	return MG_REQUEST_PROCESSED;
 }
 
 void GrizzlyHandler::registerModule(GrizzlyModule* module){
+	module->root = this;
 	module->init();
 	modules[module->getModuleSlug()] = module;
 }
@@ -150,6 +154,7 @@ void GrizzlyHandler::prepareHeader(){
 	header = readTextFile("../data/header.html");
 
 	int occurence = header.find("&css",0);
+
 	if(occurence != -1)
 		header.replace(occurence,4,style_path);
 	occurence = header.find("&jui",0);
@@ -177,5 +182,17 @@ void GrizzlyHandler::setCSStyle(const string style){
 
 void GrizzlyHandler::setJQueryUI(const string ui){
 		jquery_ui_path = ui;
+
 }
 
+string GrizzlyHandler::readTextFile(const string &file){
+	return gz::readTextFile(file);
+}
+
+string GrizzlyHandler::getDataDirectory(){
+	return working_dir;
+}
+
+void GrizzlyHandler::setWorkingDir(const string dir){
+	working_dir = dir;
+}

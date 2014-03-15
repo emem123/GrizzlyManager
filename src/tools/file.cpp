@@ -18,6 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "file.h"
 
+namespace gz{
+
 string readTextFile(const string &file_name){
 	std::ifstream stream;
 	std::string line;
@@ -121,4 +123,6 @@ void vecPairToMap(map< string, string>* dst, const vector<string>* src){
 		(*dst)[key] = value;
 	}
 }
+
+};
 

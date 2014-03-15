@@ -35,8 +35,6 @@ GrizzlyServer* GrizzlyServer::create_server(const char** args, const int argc){
 }
 
 int GrizzlyServer::start(){
-
-
 	// TODO Prenastavit working directory.
 	mg_set_option(server, "document_root", "../data/");
 	mg_set_option(server, "listening_port", "80");
@@ -57,9 +55,10 @@ void GrizzlyServer::setup(){
 	// TODO osetrit.
 	string style = reader.getItemArgs("css_style");
 	string jquery_ui = reader.getItemArgs("jquery_ui");
-
+	string working_dir = reader.getItemArgs("data");
 	handler->setCSStyle(style);
 	handler->setJQueryUI(jquery_ui);
+	handler->setWorkingDir(working_dir);
 	handler->init();
 
 	mg_set_http_error_handler(server,&GrizzlyServer::handle_error);

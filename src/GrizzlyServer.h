@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define GRIZZLYSERVER_H_
 
 #include "mongoose/mongoose.h"
-#include "mongoose/MGHandler.h"
 #include "tools/ConfigReader.h"
 #include "GrizzlyHandler.h"
 #include <string>

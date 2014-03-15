@@ -19,10 +19,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef GRIZZLYHANDLER_H_
 #define GRIZZLYHANDLER_H_
 
-#include "mongoose/MGHandler.h"
 #include "GrizzlyModule.h"
 #include "GrizzlyMainPageModule.h"
 
+#include "mongoose/mongoose.h"
 #include "tools/web.h"
 #include "tools/file.h"
 #include "tools/macros.h"
@@ -37,7 +37,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using namespace std;
 
-class GrizzlyHandler : public MGHandler{
+class GrizzlyHandler : public GrizzlyModule::GrizzlyControl{
 private:
 	map<std::string, GrizzlyModule*> modules;
 	string header;
@@ -45,6 +45,7 @@ private:
 	string error;
 	string style_path;
 	string jquery_ui_path;
+	string working_dir;
 
 public:
 	GrizzlyHandler();
@@ -52,6 +53,7 @@ public:
 
 	void setCSStyle(const string style);
 	void setJQueryUI(const string ui);
+	void setWorkingDir(const string dir);
 	void init();
 	int onError(mg_connection* conn);
 	int onChange(mg_connection * conn);
@@ -61,6 +63,9 @@ public:
 	void registerModule(GrizzlyModule* module);
 	void unregisterModule(string name, bool isSlug = true);
 	void prepareHeader();
+
+	string readTextFile(const string &file);
+	string getDataDirectory();
 };
 
 #endif /* GRIZZLYHANDLER_H_ */
