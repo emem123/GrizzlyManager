@@ -39,11 +39,6 @@ list<string> readTextFileLines(const string &file_name){
 	std::string line;
 	stream.open(file_name.c_str(),std::fstream::in);
 
-	if(stream.is_open())
-		printf("OPEN\n");
-	else
-		printf("CLOSE\n");
-
 	while(getline(stream, line)){
 		list.push_back(line);
 	}
