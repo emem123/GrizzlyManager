@@ -44,6 +44,8 @@ public:
 	virtual std::string getModuleSlug(){ return slug;}
 	virtual std::string getModuleDescription() = 0;
 
+	virtual bool isResponseAjax(){return false;}
+
 	virtual std::string onRequest(const map<string,string>* query) = 0;
 
 	/**

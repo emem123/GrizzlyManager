@@ -53,6 +53,7 @@ li{
 	background-color: white;
 	box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.4);
 
+	overflow: auto;
 }
 
 .footer{
@@ -119,4 +120,19 @@ textarea{
 	border-style: solid;
 	box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.1);
 	outline: medium none;
+}
+
+.icons{
+	float: left;
+}
+
+.file_manager{
+	
+}
+
+
+.folder:hover{
+	
+	color: white;
+	background-color: #4D90CB;
 }

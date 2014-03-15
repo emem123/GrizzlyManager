@@ -114,14 +114,28 @@ int GrizzlyHandler::onRequest(mg_connection * conn){
 
 	try{
 		response = module->onRequest(&parsed_query); // Pripadna chyba je odchytena vyssie.
+
+		if(!module->isResponseAjax()){
+			mg_send_data(conn,header.c_str(),(header.size()+1)*sizeof(char));
+			mg_send_data(conn,response.c_str(),(response.size()+1)*sizeof(char));
+			mg_send_data(conn,footer.c_str(),(footer.size()+1)*sizeof(char));
+		}
+		else{
+			mg_send_data(conn,response.c_str(),(response.size()+1)*sizeof(char));
+		}
+
+
 	}catch(std::exception e){
 		printf("[EXCEPTION] Module:\t%s\t%s\n", module->getModuleName().c_str(), e.what());
 		response = error;
+
+		mg_send_data(conn,header.c_str(),(header.size()+1)*sizeof(char));
+		mg_send_data(conn,response.c_str(),(response.size()+1)*sizeof(char));
+		mg_send_data(conn,footer.c_str(),(footer.size()+1)*sizeof(char));
+
 	}
 
-	mg_send_data(conn,header.c_str(),(header.size()+1)*sizeof(char));
-	mg_send_data(conn,response.c_str(),(response.size()+1)*sizeof(char));
-	mg_send_data(conn,footer.c_str(),(footer.size()+1)*sizeof(char));
+
 
 	return MG_REQUEST_PROCESSED;
 }
