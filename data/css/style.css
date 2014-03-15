@@ -53,6 +53,7 @@ li{
 	background-color: white;
 	box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.4);
 
+	overflow: auto;
 }
 
 .footer{
@@ -124,7 +125,24 @@ textarea{
 	outline: medium none;
 }
 
+<<<<<<< HEAD
 .textareapython{
   width: 40%;
   height:40%
 }
+=======
+.icons{
+	float: left;
+}
+
+.file_manager{
+	
+}
+
+
+.folder:hover{
+	
+	color: white;
+	background-color: #4D90CB;
+}
+>>>>>>> 6e4d796274a7855be37c33a590b088109d4522c8
