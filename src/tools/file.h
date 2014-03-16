@@ -26,16 +26,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <list>
 #include <vector>
 #include <map>
+#include <dirent.h>
 
 using namespace std;
 
 namespace gz{
 
+list<string>    getFilesInDirectory(const string &dir);
 string 			readTextFile(const string &file_name);
 list<string> 	readTextFileLines(const string &file_name);
 vector<string> 	split(const string &src, const string &delimiters);
 vector<string> 	splitWithEmpty(const string &src, const string &delimiters);
 void vecPairToMap(map< string, string>* dst, const vector<string>* src);
+
 /**
  * Pracovna verzia. Porovna rychlosti medzi readTextFile a tymto.
  */
