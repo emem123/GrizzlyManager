@@ -28,13 +28,16 @@ GrizzlyHandler::~GrizzlyHandler() {
 
 void GrizzlyHandler::init()
 {
-	list<string> lines = gz::readTextFileLines("../data/modules.conf");
+	string modulesPath = "../data/modules/";
+	list<string> modNames = gz::getFilesInDirectory(modulesPath);
 	list<string>::iterator it;
 
-	//printf("D: ")
-
-	for(it = lines.begin();it != lines.end();it++)
+	for(it = modNames.begin();it != modNames.end();it++)
 	{
+		if((*it).substr((*it).find_last_of(".") + 1) != "so")
+			continue;
+		else
+			(*it) = modulesPath + (*it);
 		// TODO Vlado - pridanie otvorenej kniznice do zoznamu, ak nie je chybna (vid nizsie) a po vypnuti modulu (alebo pri chybe) uzavretie kniznice.
 		void* lib = dlopen((*it).c_str(), RTLD_LAZY);
 
