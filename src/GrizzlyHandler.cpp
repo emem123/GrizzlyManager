@@ -31,8 +31,6 @@ void GrizzlyHandler::init()
 	list<string> lines = gz::readTextFileLines("../data/modules.conf");
 	list<string>::iterator it;
 
-	//printf("D: ")
-
 	for(it = lines.begin();it != lines.end();it++)
 	{
 		// TODO Vlado - pridanie otvorenej kniznice do zoznamu, ak nie je chybna (vid nizsie) a po vypnuti modulu (alebo pri chybe) uzavretie kniznice.
@@ -69,10 +67,7 @@ void GrizzlyHandler::init()
 	registerModule(mainpage);
 
 	prepareHeader();
-	printf("Test2\n");
 	mainpage->setModuleMap(&modules);
-
-	printf("Test1\n");
 }
 
 int GrizzlyHandler::onError(mg_connection* conn){
