@@ -1,7 +1,7 @@
 GrizzlyManager
 ============
 
-Authors of this document: Vladimír Bartošík, Martin Kuzma, Marek Moravčík.
+Authors of this document: Vladimir Bartosik, Martin Kuzma, Marek Moravcik.
 
 GrizzlyManager is utility for remote administration of Linux server.
 It is written in C++ under GNU GPLv3 license. The core program runs as

@@ -20,6 +20,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace gz{
 
+list<string> getFilesInDirectory(const string &dir)
+{
+	list<string> fileNames;
+	DIR* directory;
+	struct dirent* dirEntity;
+
+	directory = opendir(dir.c_str());
+	if(directory != NULL)
+	{
+		while((dirEntity = readdir(directory)) != NULL)
+		{
+			fileNames.push_back(string(dirEntity->d_name));
+		}
+		closedir(directory);
+	}
+
+	return fileNames;
+}
+
 string readTextFile(const string &file_name){
 	std::ifstream stream;
 	std::string line;
