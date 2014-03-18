@@ -10,6 +10,10 @@
 
 #include <string>
 #include <list>
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sstream>
 
 using namespace std;
 
@@ -44,9 +48,14 @@ public:
 		string build_content;
 		list<tab_s>::iterator it = tabs.begin();
 
+		int n = 1;
+
 		for(;it != tabs.end(); it++){
-			build_string +=  "<li><a href=\"#" + (*it).tab_name +"\">"+ (*it).tab_name +"</a></li>";
-			build_content += "<div id=\"" + (*it).tab_name + "\"><p>" + (*it).tab_content + "</p></div>";
+			std::stringstream out; // TODO neefektivne, nahradit vlastnym.
+			out << n;
+			build_string +=  "<li><a href=\"#tabs-" + out.str() +"\">"+ (*it).tab_name +"</a></li>";
+			build_content += "<div id=\"tabs-" + out.str() + "\"><p>" + (*it).tab_content + "</p></div>";
+			n++;
 		}
 
 		build_string += "</ul>";

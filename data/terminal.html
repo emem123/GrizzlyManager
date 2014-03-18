@@ -1,26 +1,25 @@
 
 <img id="up" style="padding-right: 15px;" src="dir.png" alt="Director"> </img>
 <div style="width: 100%;">
-<div id="result"  style="boder-right: 1px; border-right-style: solid; float: left;">
+<div id="result">
 </div>
 <div id="file_result"></div>
 </div>
 <script> 
 $("#up").click(function(){
-	$.ajax({url:"/terminal?action=up",success:function(result){
+	$.ajax({url:"/files?action=up",success:function(result){
 		$("#result").html(result);
 	}});
 });
 
 $(document).on('click', ".folder", function(event) {
-     $.ajax({url:"/terminal?action=dir&param=" + event.target.id,success:function(result){
+     $.ajax({url:"/files?action=dir&param=" + event.target.id,success:function(result){
 		$("#result").html(result);
 	}});
 });
 
 $(document).on('click', ".file", function(event) {
      $.ajax({url:"/files?action=file&param=" + event.target.id,success:function(result){
-
 		$("#file_result").html(result);
 		$("#file_result" ).dialog( "open" );
 	}});
@@ -34,5 +33,13 @@ $( "#file_result" ).dialog({
 	duration: 1000
 	}
 });
+
+function refresh(){
+	 $.ajax({url:"/files?action=refresh",success:function(result){
+		$("#result").html(result);
+	}});
+}
+
+refresh();
 
 </script>

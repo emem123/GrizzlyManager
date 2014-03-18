@@ -23,6 +23,9 @@ string decodeURL(string &param)
             i = i + 2;
             ret += character;
         }
+        else if(param[i] == '+'){
+        	ret += ' ';
+        }
         else
         {
             ret += param[i];
