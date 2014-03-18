@@ -16,7 +16,7 @@ ul{
 nav a{
 	float: left;
 	display: block;
-	background-color: #0072C6;
+	background-color: #191919;
 	text-decoration: none;
 	color: white;
 	padding: 10px;
@@ -26,7 +26,7 @@ nav a{
 
 nav a:hover{
 	text-decoration: none;
-	background-color: #0061B5;
+	background-color: #303030;
 	
 }
 
@@ -43,7 +43,7 @@ li{
 
 .content{
 	color: #4D4D4D;
-	//padding: 10px;
+	padding: 10px;
 	margin-left: auto;
 	margin-right: auto;
 	width: 90%;
@@ -115,18 +115,29 @@ input[type=submit]:hover {
 }
 
 textarea{
-  	resize:none;
+  resize:none;
+  background-color : #0F253B;
 	border: 1px;
 	border-color: #969688;
 	border-style: solid;
-  	padding: 10px;
+  padding: 10px;
 	box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.1);
 	outline: medium none;
+}
+
+.textareapython{
+  width: 40%;
+  height:40%
 }
 
 .icons{
 	float: left;
 }
+
+.file_manager{
+	
+}
+
 
 .folder:hover{
 	
