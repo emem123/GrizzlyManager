@@ -37,6 +37,7 @@ private:
 		return GrizzlyServer::handler->onRequest(conn);
 	}
 
+
 	static int handle_error(mg_connection* conn){
 		return GrizzlyServer::handler->onError(conn);
 	}

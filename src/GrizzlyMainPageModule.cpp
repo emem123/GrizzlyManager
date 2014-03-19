@@ -44,6 +44,7 @@ std::string GrizzlyMainPageModule::onRequest(const map<string, string>* query){
 
 	tabs.addTab("Modules",res);
 	tabs.addTab("Options","Under construnction.");
+	tabs.addTab("Etc a ptc","Under construnction.");
 
 
 	return tabs.build();// + "<textarea>Blabla</textarea><input type=\"submit\" value=\"Keke\"/>";

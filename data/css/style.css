@@ -79,7 +79,7 @@ h3{
 }
 
 .info:nth-child(even){
-	background-color: #EEEEEE;
+	background-color: #DDDDFF;
 }
 
 nav {
@@ -134,3 +134,9 @@ textarea{
 	color: white;
 	background-color: #4D90CB;
 }
+
+.file:hover{
+	color: white;
+	background-color: #4D90CB;
+}
+
