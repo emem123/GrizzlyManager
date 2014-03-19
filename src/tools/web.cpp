@@ -16,7 +16,7 @@ string decodeURL(string &param)
 
     for (i = 0;i < param.length();i++)
     {
-        if(int(param[i]) == 37)
+        if(param[i] == '%')
         {
             sscanf(param.substr(i+1,2).c_str(), "%x", &correctChar);
             character = static_cast<char>(correctChar);
