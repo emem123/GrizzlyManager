@@ -1,0 +1,140 @@
+# !/bin/bash
+
+# C++ server for web-driven administration with module support.
+# Copyright (C) 2014  Vladimir Bartosik, Martin Kuzma, Marek Moravcik
+# 
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# This script checks if you have permissions to install GrizzlyManager, if another instance
+# of GrizzlyManager is running and if TCP port 80 is not used by another application.
+
+
+##### Variables #####
+
+CONFIG_FILE=./data/grizzly.conf
+PORT=$(cat $CONFIG_FILE | grep port | grep -o [0-9]*)
+LISTENS_ON_PORT=-1
+NEW_PORT=-1
+INSERT=-1
+CONTINUE=1
+
+##### check of TCP port #####
+
+checkPort(){
+LISTEN=$(netstat -na | grep -o 0.0.0.0:$1)
+
+if [ -n "$LISTEN" ]; then
+   LISTENS_ON_PORT=1
+else
+   LISTENS_ON_PORT=0
+fi
+}
+
+<<comm
+# checks, if i have permissions ############################################################
+if [ $(whoami) != "root" ]; then
+   echo 'You have to be superuser to install this program'
+   exit 0
+else
+   echo 'Superuser OK'
+fi
+comm
+
+# checkfor dependencies ############################################################
+
+echo 'Check for dependencies'
+
+# GCC, G++
+PROG=g++
+VAR=$(command -v $PROG)
+if [ -z $VAR ]; then
+   echo $PROG 'error. Do you have '$PROG' installed?'
+   exit 1
+else
+   echo $PROG 'OK'
+fi
+
+# make
+PROG=make
+VAR=$(command -v $PROG)
+if [ -z $VAR ]; then
+   echo $PROG 'error. Do you have '$PROG' installed?'
+   exit 1
+else
+   echo $PROG 'OK'
+fi
+
+# checks, if port is used ############################################################
+
+echo 'Check for listening port'
+checkPort $PORT
+
+if [ $LISTENS_ON_PORT -eq 1 ]; then
+   echo -ne 'Port' $PORT 'is used by another application. Do you want to change the port [y/N]? '
+   read INSERT
+
+   if [[ "$INSERT" = "y" ]] || [[ "$INSERT" = "Y" ]] || [[ "$INSERT" = "yes" ]] || [[ "$INSERT" = "Yes" ]] || [[ "$INSERT" = "YES" ]]; then
+
+      CONTINUE=1
+      while [ $CONTINUE -eq 1 ]; do
+
+         echo -ne 'New port: '
+         read NEW_PORT
+
+         if echo "$NEW_PORT" | grep -qE ^[0-9]+$; then
+            if [ $NEW_PORT -lt 0 ] | [ $NEW_PORT -gt 65535 ]; then
+               echo 'Port must be in range 0-65535!'
+            else 
+               checkPort $NEW_PORT
+               if [ $LISTENS_ON_PORT -eq 1 ]; then
+	         echo 'This port is alredy used. Please select another.'
+	         continue
+               fi
+
+               CONTINUE=0
+               PORT=$NEW_PORT
+               LINE=$(cat $CONFIG_FILE | grep port)
+               NEW_LINE="port	"$PORT
+               sed -i 's/'"$LINE"'/'"$NEW_LINE"'/g' $CONFIG_FILE
+            fi #check of range
+         else
+            echo 'Please enter number!'
+         fi # check of number
+      done
+
+      echo 'Port changed to' $PORT
+
+   else
+      echo 'Aborted'
+      exit 0
+   fi # check of input
+
+else
+   echo 'Nobody listens on port' $PORT 'OK'
+fi # check if somebody listens on port
+
+
+
+#####  check if have init.d or systemd  #####
+
+
+
+<<comment1
+echo '*********************************'
+echo '*				*'
+echo '*  configure succesfully done   *'
+echo '*				*'
+echo '*********************************'
+comment1
+
