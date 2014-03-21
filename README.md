@@ -11,6 +11,7 @@ Features:
 - fast and modular administration tool
 - module implementation as shared libraries in C++ (fast with limitless possibilities!)
 - ajax support (see examples for more)
+- jQuery and jQueryUI
 - free and open source :)
 
 Planned features:
