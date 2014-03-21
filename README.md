@@ -22,6 +22,7 @@ Planned features:
 - session handling
 - init.d and systemd integration
 - .configure script
+- debian packages (x86, x64, armhf, armel)
 
 
 License: GNU GPLv3
