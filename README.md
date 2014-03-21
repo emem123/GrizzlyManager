@@ -3,13 +3,14 @@ GrizzlyManager
 
 Authors: Vladimir Bartosik, Martin Kuzma, Marek Moravcik.
 
-GrizzlyManager is lightweight utility for remote web administration of Linux server based on MonGoose server.
+GrizzlyManager is lightweight utility for remote web administration of Linux server based on MonGoose.
 It is written in C++ under GNU GPLv3 license. The core program runs as
 service and can load modules (compiled as shared libraries) and use their functionalities.
 
 Features:
 - fast and modular administration tool
 - module implementation as shared libraries in C++ (fast with limitless possibilities!)
+- simple module API
 - ajax support (see examples for more)
 - jQuery and jQueryUI
 - free and open source :)
@@ -19,6 +20,7 @@ Planned features:
 - authentification with strict connection policy
 - example modules
 - session handling
+- init.d and systemd integration
 - .configure script
 
 
