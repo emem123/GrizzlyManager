@@ -40,3 +40,28 @@ This script checks if you have permissions to install GrizzlyManager,
 if another instance of GrizzlyManager is running, if TCP port 80
 is not used by another application. It also checks if you hane init.d
 or Systemd script system on your computer.
+
+make
+****
+
+Compiles core program and modules.
+
+make install
+***********
+
+Creates service that runs GrizzlyManager during boot and copies necessary
+files to filesystem.
+
+make clean
+***
+
+This removes all compiled files, binaries, shared objects and so on.
+It leaves only source code files.
+
+adding new modules
+******************
+
+If you want to add new modules, add all source files into src/modules/YourDirectory.
+If your module need some additional files which do not have to be compiled, create
+subdirectory with name libYourDirectory. This subdirectory will be copied into modules
+folder with your compiled module.

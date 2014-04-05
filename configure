@@ -75,6 +75,16 @@ else
    echo $PROG 'OK'
 fi
 
+# cmake
+PROG=cmake
+VAR=$(command -v $PROG)
+if [ -z $VAR ]; then
+   echo $PROG 'error. Do you have '$PROG' installed?'
+   exit 1
+else
+   echo $PROG 'OK'
+fi
+
 # checks, if port is used ############################################################
 
 echo 'Check for listening port'
@@ -126,7 +136,8 @@ fi # check if somebody listens on port
 
 
 
-#####  check if have init.d or systemd  #####
+## prepare makefiles ############################################################
+cmake /src
 
 
 
