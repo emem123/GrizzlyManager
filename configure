@@ -137,7 +137,7 @@ fi # check if somebody listens on port
 
 
 ## prepare makefiles ############################################################
-cmake /src
+cmake src/
 
 
 
