@@ -56,7 +56,8 @@ make clean
 ***
 
 This removes all compiled files, binaries, shared objects and so on.
-It leaves only source code files.
+It leaves only source code files. Make clean ends with error, but it is OK,
+because it erases itself.
 
 adding new modules
 ******************
