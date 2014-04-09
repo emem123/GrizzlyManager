@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "GrizzlyServer.h"
 #include "tools/file.h"
+#include "tools/string.h"
 
 GrizzlyServer::GrizzlyServer(const char** args, const int argc) {
 	// Nahratie konfigu
@@ -35,6 +36,9 @@ GrizzlyServer* GrizzlyServer::create_server(const char** args, const int argc){
 }
 
 int GrizzlyServer::start(){
+
+	printf("Vysledok %s\n", toStringHex(178));
+
 	// TODO Prenastavit working directory.
 	mg_set_option(server, "document_root", "../data/");
 	mg_set_option(server, "listening_port", "80");

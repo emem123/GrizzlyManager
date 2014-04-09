@@ -16,28 +16,28 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef ARRAYLIST_H_
-#define ARRAYLIST_H_
+#ifndef SYSTEMINFO_H_
+#define SYSTEMINFO_H_
 
-template<typename T>
-class ArrayList {
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string>
+#include <iostream>
+#include <fstream>
 
-	int current_element;
-	int size;
-	T** array;
+#include "GrizzlyModule.h"
+#include "WebTabBuilder.h"
+
+class SystemInfo : public GrizzlyModule{
 
 public:
-	ArrayList();
-	virtual ~ArrayList();
-
-
-
-	void add(const T &object){
-
-
-	}
-
+	SystemInfo();
+	~SystemInfo();
+	std::string getModuleDescription(){return "Module writes system informations and paints graph of CPU usage.";}
+	std::string onRequest(const map<string,string>* query);
+	void init();
 
 };
 
-#endif /* ARRAYLIST_H_ */
+#endif /* SYSTEMINFO_H_ */

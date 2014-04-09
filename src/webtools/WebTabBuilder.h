@@ -60,7 +60,6 @@ public:
 
 		build_string += "</ul>";
 		build_string += build_content + "</div>";
-
 		build_string += "<script> $(function() {$( \"#"+ container_name +"\" ).tabs(); });</script>";
 
 		if(save)

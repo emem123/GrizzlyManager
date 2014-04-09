@@ -1,0 +1,13 @@
+python_output_format{
+position: fixed; 
+top: 70px; 
+right: 47%;
+}
+
+.python_textarea{
+position: fixed; 
+top: 90px;  
+right: 70px;  
+height: 60%;  
+width: 47%;
+}

@@ -35,9 +35,14 @@ $( "#file_result" ).dialog({
 });
 
 function refresh(){
-	 $.ajax({url:"/files?action=refresh",success:function(result){
-		$("#result").html(result);
-	}});
+	 $.ajax(
+		{
+			url:"/files?action=refresh",
+			success: function(result){
+				$("#result").html(result);
+			}
+		}
+	);
 }
 
 refresh();
