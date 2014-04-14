@@ -28,13 +28,6 @@ INSTALL(PROGRAMS ../GrizzlyManager DESTINATION ${progDest})
 #copy data folder to destination
 INSTALL(DIRECTORY ../data DESTINATION ${dest})
 
-ADD_CUSTOM_TARGET(clean
-	COMMAND ${CMAKE_COMMAND} -E remove ${CMAKE_BINARY_DIR}/CMakeCache.txt
-	COMMAND ${CMAKE_COMMAND} -E remove ${CMAKE_BINARY_DIR}/cmake_install.cmake
-	COMMAND ${CMAKE_COMMAND} -E remove ${CMAKE_BINARY_DIR}/install_manifest.txt
-	
-	COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_BINARY_DIR}/modules
-	COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_BINARY_DIR}/CMakeFiles
-COMMAND ${CMAKE_COMMAND} -E remove ${CMAKE_BINARY_DIR}/Makefile
+ADD_CUSTOM_TARGET(uninstall
+	COMMAND ${CMAKE_COMMAND} -E remove_directory ${dest}
 )
-
