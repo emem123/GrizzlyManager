@@ -26,8 +26,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <iostream>
 #include <fstream>
 
-#include "GrizzlyModule.h"
-#include "WebTabBuilder.h"
+#include "../../GrizzlyModule.h"
+#include "../../webtools/WebTabBuilder.h"
 
 class SystemInfo : public GrizzlyModule{
 

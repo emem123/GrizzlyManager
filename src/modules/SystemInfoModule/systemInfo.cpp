@@ -164,7 +164,7 @@ std::string getGraph(){
 	}
 
 	//ziskanie dat
-	array[numberOfItems-1] = atof(get_output_from_stdin("top -bn 2 -d 0.01 | grep '^Cpu.s.' | tail -n 1 | gawk '{print $2+$4+$6}'").c_str());
+	array[numberOfItems-1] = atof(get_output_from_stdin("top -bn 2 -d 0.01 | grep '^Cpu.s.' | tail -n 1 | awk '{print $2+$4+$6}'").c_str());
 
 	//vytvorenie hodnot a vlepenie ich do stringu
 	for (int i=0; i<numberOfItems; i++){

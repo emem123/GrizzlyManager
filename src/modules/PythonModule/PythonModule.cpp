@@ -52,7 +52,7 @@ std::string PythonModule::onRequest(const map<string,string>* query)
 		sourceCode = query->at("sourcecode");
 	}
 	catch(std::out_of_range){
-
+		//TODO log
 	}
 
 	//------------------Replacing /space/ sequence back to space character------------

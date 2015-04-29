@@ -8,7 +8,7 @@
 #ifndef PYTHONMODULE_H_
 #define PYTHONMODULE_H_
 
-#include "GrizzlyModule.h"
+#include "../../GrizzlyModule.h"
 #include <map>
 #include <fstream>
 #include <iostream>
