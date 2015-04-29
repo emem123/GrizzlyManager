@@ -38,7 +38,7 @@ configure
 
 This script checks if you have permissions to install GrizzlyManager,
 if another instance of GrizzlyManager is running, if TCP port 80
-is not used by another application. It also checks if you hane init.d
+is not used by another application. It also checks if you have init.d
 or Systemd script system on your computer.
 
 make
@@ -51,6 +51,13 @@ make install
 
 Creates service that runs GrizzlyManager during boot and copies necessary
 files to filesystem.
+
+
+make uninstall
+***********
+
+Deletes installed files from your filesystem.
+
 
 make clean
 ***

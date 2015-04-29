@@ -1,0 +1,55 @@
+#!/bin/bash
+### BEGIN INIT INFO
+# Provides:          GrizzlyManager
+# Required-Start:    $local_fs $nerwork
+# Required-Stop:
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start/stop GrizzlyManager
+# Description:
+### END INIT INFO
+
+
+PID=$(ps aux | grep -o '.*GrizzlyManager$' | grep -o '[0-9]\+' | head -n 1)
+GRIZZLYPATH=/tmp/GrizzlyManager/Grizzly
+
+case "$1" in
+  start)
+	#if PID is not empty
+	if [ -n "$PID" ]; then
+		echo 'Another instance of GrizzlyManager is alredy running'
+		exit 0
+	fi
+
+	echo "Starting GrizzlyManager"
+
+	$GRIZZLYPATH/GrizzlyManager &
+	PID=$(ps aux | grep -o '.*GrizzlyManager$' | grep -o '[0-9]\+' | head -n 1)
+
+	echo 'GrizzlyManager started with PID' $PID
+	;;
+  stop)
+	#if PID is empty
+	if [ -z "$PID" ]; then
+		exit 0
+	fi
+	echo "Stopping GrizzlyManager with PID $PID"
+	kill $PID
+	;;
+  restart)
+	echo "Restarting GrizzlyManager"
+	$0 stop
+	$0 start
+	;;
+  status)
+	if [ -z $PID ]; then
+		echo 'GrizzlyManager is not running'
+	else
+		echo 'GrizzlyManager is running with PID' $PID
+	fi
+	;;
+  *)
+	echo "Usage: $0 start|restart|stop|status" >&2
+	exit 3
+	;;
+esac
