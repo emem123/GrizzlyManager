@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 GrizzlyMainPageModule::GrizzlyMainPageModule() {
 	name = "GrizzlyManager";
-	slug = "";
+	slug = "main";
 }
 
 GrizzlyMainPageModule::~GrizzlyMainPageModule() {
@@ -34,12 +34,15 @@ std::string GrizzlyMainPageModule::onRequest(const map<string, string>* query){
 	WebTabBuilder tabs;
 
 	for(it = modules->begin(); it != modules->end(); it++){
-		res += "<div class=\"info\">";
-		res += "<h3>";
-		res += (*it).second->getModuleName();
-		res += "</h3><span>";
-		res += (*it).second->getModuleDescription();
-		res += "</span></div>";
+		if((*it).second->getModuleName() != "Login")
+		{
+			res += "<div class=\"info\">";
+			res += "<h3>";
+			res += (*it).second->getModuleName();
+			res += "</h3><span>";
+			res += (*it).second->getModuleDescription();
+			res += "</span></div>";
+		}
 	}
 
 	tabs.addTab("Modules",res);

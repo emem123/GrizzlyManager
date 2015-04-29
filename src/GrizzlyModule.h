@@ -27,11 +27,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using namespace std;
 
+struct session{
+		unsigned long timeStamp;
+		string login;
+	};
+
 class GrizzlyModule {
+
 protected:
 	std::string name;
 	std::string slug;
-
 
 
 public:

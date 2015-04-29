@@ -106,7 +106,7 @@ input[type=submit] {
 	background-color: #0072C6;
 	border: 0px;
         padding: 7px;
-        margin-top: 5px;
+        margin-top: 10px;
 }
 
 input[type=submit]:hover {
@@ -129,6 +129,57 @@ textarea{
 	float: left;
 }
 
+.centered{
+	margin: 10% 40% auto;
+}
+
+.grizzly_logo{
+	margin-left:10px;
+}
+
+.login_button{
+	margin-left: 90px;
+	padding: 10px;
+}
+
+login_failed_string{
+	color: red;
+	margin-left:30px;
+}
+
+input[type=text] {
+	color: white;
+	background-color: #0072C6;
+	border: 0px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+input[type=text]:hover {
+	color: white;
+	background-color: #0061B5;
+	border: 0px;
+}
+
+input[type=password] {
+	color: white;
+	background-color: #0072C6;
+	border: 0px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+input[type=password]:hover {
+	color: white;
+	background-color: #0061B5;
+	border: 0px;
+}
+
+.log_out{
+	position:absolute;
+	right:0px;
+}
+
 .folder:hover{
 	
 	color: white;
@@ -139,4 +190,3 @@ textarea{
 	color: white;
 	background-color: #4D90CB;
 }
-

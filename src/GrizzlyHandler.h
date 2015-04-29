@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "GrizzlyModule.h"
 #include "GrizzlyMainPageModule.h"
+#include "GrizzlyAuthModule.h"
 
 #include "mongoose/mongoose.h"
 #include "tools/web.h"
@@ -40,12 +41,15 @@ using namespace std;
 class GrizzlyHandler : public GrizzlyModule::GrizzlyControl{
 private:
 	map<std::string, GrizzlyModule*> modules;
+	GrizzlyAuthModule* authInst;
+	list<void*> loadedModules;
 	string header;
 	string footer;
 	string error;
 	string style_path;
 	string jquery_ui_path;
 	string working_dir;
+	string modules_dir;
 
 public:
 	GrizzlyHandler();
@@ -54,11 +58,13 @@ public:
 	void setCSStyle(const string style);
 	void setJQueryUI(const string ui);
 	void setWorkingDir(const string dir);
+	void setModulesDir(const string dir);
 	void init();
 	int onError(mg_connection* conn);
 	int onChange(mg_connection * conn);
 	int onRequest(mg_connection * conn);
 	int onAuth(mg_connection* conn);
+	void onExit();
 
 	void registerModule(GrizzlyModule* module);
 	void unregisterModule(string name, bool isSlug = true);

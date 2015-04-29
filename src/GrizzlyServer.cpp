@@ -37,8 +37,6 @@ GrizzlyServer* GrizzlyServer::create_server(const char** args, const int argc){
 
 int GrizzlyServer::start(){
 
-	printf("Vysledok %s\n", toStringHex(178));
-
 	// TODO Prenastavit working directory.
 	mg_set_option(server, "document_root", "../data/");
 	mg_set_option(server, "listening_port", "80");
@@ -54,15 +52,17 @@ int GrizzlyServer::start(){
 void GrizzlyServer::setup(){
 
 	ConfigReader reader;
-	reader.run("../data/grizzly.conf", true);
+	reader.run("../system/grizzly.conf", true);
 
 	// TODO osetrit.
 	string style = reader.getItemArgs("css_style");
 	string jquery_ui = reader.getItemArgs("jquery_ui");
 	string working_dir = reader.getItemArgs("data");
+	string modules_dir = reader.getItemArgs("modules");
 	handler->setCSStyle(style);
 	handler->setJQueryUI(jquery_ui);
 	handler->setWorkingDir(working_dir);
+	handler->setModulesDir(modules_dir);
 	handler->init();
 
 	mg_set_http_error_handler(server,&GrizzlyServer::handle_error);
