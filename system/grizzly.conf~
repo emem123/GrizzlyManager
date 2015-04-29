@@ -1,0 +1,4 @@
+jquery_ui	js/jquery-ui-1.9.2.custom.min.js
+css_style	css/style.css
+port	80
+data	../data/
